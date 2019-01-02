@@ -38,6 +38,11 @@ namespace DataBaseAPI.DataAccess
 
         public async Task<Unicorn> AddUnicorn(Unicorn unicornToAdd)
         {
+            unicornToAdd.DateOfBirth = DateTime.Now;
+
+            var hornTypeInContext = await _context.HornTypes.FindAsync(unicornToAdd.HornType.Id);
+            unicornToAdd.HornType = hornTypeInContext;
+
             await _context.Unicorns.AddAsync(unicornToAdd);
             await _context.SaveChangesAsync();
 

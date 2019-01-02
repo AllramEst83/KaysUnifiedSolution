@@ -7,11 +7,11 @@ export function loadUnicornsSuccess(unicorns) {
     return { type: actionTypes.LOAD_UNICORNS_SUCCESS, unicorns: unicorns };
 }
 
-export function createUnicornSuccess(unicorn){
-return {type: actionTypes.CREATE_UNICORN_SUCCESS, unicorn: unicorn }
+export function createUnicornSuccess(unicorn) {
+    return { type: actionTypes.CREATE_UNICORN_SUCCESS, unicorn: unicorn }
 }
-export function updateUnicornSuccess(unicorn){
-    return {type: actionTypes.UPDATED_UNICORN_SUCCESS, unicorn: unicorn }
+export function updateUnicornSuccess(unicorn) {
+    return { type: actionTypes.UPDATED_UNICORN_SUCCESS, unicorn: unicorn }
 }
 //unicornApi
 export function loadUnicorns() {
@@ -30,14 +30,33 @@ export function loadUnicorns() {
 
 export function UpdateUnicorn(unicorn) {
     return function (dispatch, getState) {
-        return unicornApi.putUnicorn(unicorn).then(savedUnicorn =>{
+        if (unicorn.Id) {
+            return unicornApi.putUnicorn(unicorn).then(savedUnicorn => {
+                dispatch(updateUnicornSuccess(unicorn));
+            }).catch(error =>{
+                throw error;
+            });
+        } else {
+            return unicornApi.postUnicorn(unicorn).then(updatedUnicorn => {
+                dispatch(createUnicornSuccess(unicorn));
+            }).catch(error =>{
+                throw error;
+            });
+        }
 
-            unicorn.Id ? dispatch(updateUnicornSuccess(unicorn)) :
-
-            dispatch(createUnicornSuccess(unicorn))
-
-        }).catch(error=>{
-            throw error;
-        });
     }
 }
+
+// export function UpdateUnicorn(unicorn) {
+//     return function (dispatch, getState) {
+//         return unicornApi.putUnicorn(unicorn).then(savedUnicorn => {
+
+//             unicorn.Id ? dispatch(updateUnicornSuccess(unicorn)) :
+
+//                 dispatch(createUnicornSuccess(unicorn))
+
+//         }).catch(error => {
+//             throw error;
+//         });
+//     }
+// }

@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as unicornActions from '../../actions/unicornActions';
 import UnicornForm from '../unicorn/unicornForm';
+import { browserHistory } from 'react-router';
+
 
 class ManageUnicornPage extends React.Component {
     constructor(props, context) {
@@ -12,7 +14,14 @@ class ManageUnicornPage extends React.Component {
             errors: {}
         };
         this.updateUnicornState = this.updateUnicornState.bind(this);
-        this.updateUnicorn = this.updateUnicorn.bind(this);
+        this.updateUnicorn = this.updateUnicorn.bind(this);     
+    }
+
+    componentWillReceiveProps(nextProps){
+        if (this.props.unicorn.Id != nextProps.unicorn.Id) {
+            //Necessary to populate form when existing unicorn is loaded directly
+            this.setState({ unicorn: Object.assign({}, nextProps.unicorn) });
+        }
     }
 
     updateUnicornState(event) {
@@ -34,6 +43,7 @@ class ManageUnicornPage extends React.Component {
         this.props.actions.UpdateUnicorn(this.state.unicorn).then(
             function (details) {
                 //Redirect to '/unicorns' page
+                browserHistory.push('/unicorns');
             },
             function (error) { /* handle failure */ }
         );

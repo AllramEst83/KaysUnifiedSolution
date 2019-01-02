@@ -1,10 +1,10 @@
 
-    const RootAPIUrl = {
-        // localhostHomeIp:'192.168.10.159:45457',
-        homeIp:'192.168.10.159:45457',
-        localhostWorkIp:'',
-        workIp:'10.231.30.139:45460'
-    };
+const RootAPIUrl = {
+    // localhostHomeIp:'192.168.10.159:45457',
+    homeIp: '192.168.10.159:45457',
+    localhostWorkIp: '',
+    workIp: '10.231.30.139:45460'
+};
 
 class AuthorApi {
 
@@ -80,17 +80,26 @@ class AuthorApi {
 
     static postUnicorn(unicorn) {
         return new Promise((resolve, reject) => {
+
+       
+            let prop ="Id";
+            delete unicorn[prop];
+            let data = JSON.stringify(unicorn);
+
+            console.log(data);
+
             fetch(`https://${RootAPIUrl.workIp}/api/PublicUnicorn/AddUnicorn`, {
-                method: 'post',
+                method: 'POST',
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': 'http://localhost:3000'
                 },
-                body: JSON.stringify(unicorn)
+                body: data
             }).then(res => res.json())
                 .then(
                     (result) => {
-                        // resolve(Object.assign([], result.Unicorn));
+                        resolve(Object.assign([], result));
                         console.log(result);
                     },
                     (error) => {
@@ -103,10 +112,11 @@ class AuthorApi {
     static putUnicorn(unicorn) {
         return new Promise((resolve, reject) => {
             fetch(`https://${RootAPIUrl.workIp}/api/PublicUnicorn/UpdateUnicorn`, {
-                method: 'put',
+                method: 'PUT',
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': 'http://localhost:3000'
                 },
                 body: JSON.stringify(unicorn)
             }).then(res => res.json())
@@ -114,7 +124,7 @@ class AuthorApi {
                     (result) => {
                         resolve(Object.assign([], result.Unicorn));
                         console.log(result);
-                   
+
                     },
                     (error) => {
                         console.log(error);

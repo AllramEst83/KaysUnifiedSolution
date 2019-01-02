@@ -125,7 +125,7 @@ namespace PublicAPI.Service
 
         public async Task<List<UnicornApiModel>> GetUnicornsForXml() => await _httpRepository.GetAllUnicorns(CancellationToken.None);
 
-        public async Task<UnicornApiModel> AddUnicorn(UnicornToAddAPIModel unicornToAdd)
+        public async Task<UnicornApiModel> AddUnicorn(CreateUnicornApiModel unicornToAdd)
         {
             UnicornApiModel addedUnicorn = await _httpRepository.PostStreamAsync(unicornToAdd, CancellationToken.None);
 
@@ -177,6 +177,27 @@ namespace PublicAPI.Service
             UnicornApiModel updatedUnicorn = new UnicornApiModel()
             {
                 Id = unicorn.Id,
+                Name = unicorn.Name,
+                Breed = unicorn.Breed,
+                Description = unicorn.Description,
+                DateOfBirth = unicorn.DateOfBirth,
+                IsDeleted = unicorn.IsDeleted,
+                IsSold = unicorn.IsSold,
+                Origin = unicorn.Origin,
+                HornType = hornType
+            };
+
+            return updatedUnicorn;
+        }
+
+        public async Task<CreateUnicornApiModel> AssignNewHornTypeToNewUnicorn(CreateUnicornApiModel unicorn)
+        {
+            HornTypeApiModel newHorntype = await GetHornTypeByGuid(unicorn.HornType.Id);
+
+            var hornType = Mapper.Map<HornType>(newHorntype);
+
+            CreateUnicornApiModel updatedUnicorn = new CreateUnicornApiModel()
+            {
                 Name = unicorn.Name,
                 Breed = unicorn.Breed,
                 Description = unicorn.Description,

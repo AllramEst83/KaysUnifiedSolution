@@ -58,16 +58,19 @@ namespace PublicAPI.Controllers
         }
 
         [HttpPost(Name = "AddUnicorn")]
-        public async Task<ActionResult> AddUnicorn([FromBody] UnicornApiModel unicornToAdd)
+        public async Task<ActionResult> AddUnicorn([FromBody] CreateUnicornApiModel unicornToAdd)
         {
             if (unicornToAdd == null)
             {
                 return BadRequest("Please post the correct data");
             }
 
-            UnicornToAddAPIModel unicorn = Mapper.Map<UnicornToAddAPIModel>(unicornToAdd);
+            //UnicornToAddAPIModel unicorn = Mapper.Map<UnicornToAddAPIModel>(unicornToAdd);
 
-            UnicornApiModel addedUnicorn = await _unicornService.AddUnicorn(unicorn);
+            unicornToAdd =
+                   await _unicornService.AssignNewHornTypeToNewUnicorn(unicornToAdd);
+
+            UnicornApiModel addedUnicorn = await _unicornService.AddUnicorn(unicornToAdd);
 
             return Ok(addedUnicorn);
         }

@@ -17,9 +17,10 @@ namespace PublicAPI.Interface
         Task<string> GetUnicornByGuid(Guid id);
         string SerializeResponse<T>(T responseObject);
         Task<List<UnicornApiModel>> GetUnicornsForXml();
-        Task<UnicornApiModel> AddUnicorn(UnicornToAddAPIModel unicornToAdd);
+        Task<UnicornApiModel> AddUnicorn(CreateUnicornApiModel unicornToAdd);
         Task<string> GetAllHornTypes(CancellationToken cancellationToken);
         Task<UnicornApiModel> UpdateUnicorn(UnicornToUpdateAPIModel unicornToUpdate);
         Task<UnicornApiModel> AssignNewHornType(UnicornApiModel unicorn);
+        Task<CreateUnicornApiModel> AssignNewHornTypeToNewUnicorn(CreateUnicornApiModel unicorn);
     }
 }

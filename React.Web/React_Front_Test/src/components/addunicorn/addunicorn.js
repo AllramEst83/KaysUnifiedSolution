@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as unicornActions from '../../actions/unicornActions';
 import { bindActionCreators } from 'redux';
 import UnicornList from '../unicorn/unicornList';
+import { browserHistory } from 'react-router';
 
 
 
@@ -18,14 +19,26 @@ class AddUnicorn extends React.Component {
                 origin: ""
             }
         };
+
+        this.redirectToAddUicornsPage = this.redirectToAddUicornsPage.bind(this);
+    }
+
+    redirectToAddUicornsPage(){
+        browserHistory.push('/unicorn');
     }
 
     render() {
         const { unicorns } = this.props;
         return (
-            <div className="row">
+            <div className="row">           
                 <div className="listSpacing">
                     <UnicornList unicorns={unicorns} />
+                    <input
+                    type="submit"
+                    value="Add Unicorn"
+                    className="btn btn-primary"
+                    onClick={this.redirectToAddUicornsPage}
+                />
                 </div>
             </div>
         );
