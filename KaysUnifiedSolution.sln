@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KaysUnifiedSolution", "KaysUnifiedSolution\KaysUnifiedSolution.csproj", "{840DEE6C-33C7-45B0-B6D2-DEF27FD09945}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FirstLineAPI", "FirstLineAPI\FirstLineAPI.csproj", "{87804411-A3BF-4E8C-AF58-4769D9FF945C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataBaseAPI", "DataBaseAPI\DataBaseAPI.csproj", "{64DF157E-81A0-4C11-9259-F3BB03D5172D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthenticationAPI", "AuthenticationAPI\AuthenticationAPI.csproj", "{77B3BE12-FC28-49F3-B480-7713CDC70A07}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PublicAPI", "PublicAPI\PublicAPI.csproj", "{BE4C0C71-7D97-4E33-8734-8B0E67A311FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "React.Web", "React.Web\React.Web.csproj", "{57D42A47-FC8E-4CD9-AFC6-881F9A6DBA33}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +19,26 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{840DEE6C-33C7-45B0-B6D2-DEF27FD09945}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{840DEE6C-33C7-45B0-B6D2-DEF27FD09945}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{840DEE6C-33C7-45B0-B6D2-DEF27FD09945}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{840DEE6C-33C7-45B0-B6D2-DEF27FD09945}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87804411-A3BF-4E8C-AF58-4769D9FF945C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87804411-A3BF-4E8C-AF58-4769D9FF945C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87804411-A3BF-4E8C-AF58-4769D9FF945C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87804411-A3BF-4E8C-AF58-4769D9FF945C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64DF157E-81A0-4C11-9259-F3BB03D5172D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64DF157E-81A0-4C11-9259-F3BB03D5172D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64DF157E-81A0-4C11-9259-F3BB03D5172D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64DF157E-81A0-4C11-9259-F3BB03D5172D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77B3BE12-FC28-49F3-B480-7713CDC70A07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77B3BE12-FC28-49F3-B480-7713CDC70A07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77B3BE12-FC28-49F3-B480-7713CDC70A07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77B3BE12-FC28-49F3-B480-7713CDC70A07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE4C0C71-7D97-4E33-8734-8B0E67A311FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE4C0C71-7D97-4E33-8734-8B0E67A311FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE4C0C71-7D97-4E33-8734-8B0E67A311FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE4C0C71-7D97-4E33-8734-8B0E67A311FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57D42A47-FC8E-4CD9-AFC6-881F9A6DBA33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57D42A47-FC8E-4CD9-AFC6-881F9A6DBA33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57D42A47-FC8E-4CD9-AFC6-881F9A6DBA33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57D42A47-FC8E-4CD9-AFC6-881F9A6DBA33}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,60 @@
+/* Styles */
+
+#app {
+  font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #4d4d4d;
+  min-width: 550px;
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+a.active {
+  color: orange;
+}
+
+nav {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.topBar {
+  background-color: #7D3C98;
+  width: 100%;
+  min-height: 80px;
+}
+
+.mainText {
+  color: lightgrey;
+  font-size: 2em;
+  margin-left: 30px;
+  padding-top: 20px;
+  text-shadow: 0px 5px 25px black;
+
+  /*TextShadow Animation*/
+  -webkit-transition: text-shadow 0.2s linear;
+  -moz-transition: text-shadow 0.2s linear;
+  -ms-transition: text-shadow 0.2s linear;
+  -o-transition: text-shadow 0.2s linear;
+  transition: text-shadow 0.2s linear;
+}
+
+.mainText:hover {
+  text-shadow:  0px -15px 50px 30px rgb(182, 13, 255);
+}
+
+.thumbnail {
+  position: relative;
+  padding: 0px;
+  margin-bottom: 20px;
+}
+.cardRoot:hover{
+  box-shadow: 0px -15px 50px rgba(33,33,33,.2); 
+}
+
+.thumbnail img {
+  width: 100%;
+}
+
+.listSpacing{
+  margin:25px;
+}

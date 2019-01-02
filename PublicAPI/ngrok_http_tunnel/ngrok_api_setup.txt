@@ -1,0 +1,8 @@
+
+-Öppna ngrok filen.
+
+(host-header lägst till för att annars blockeras requesten av appen)
+-Klistra in: ngrok http -host-header=localhost <port nummer på appen>
+
+Vanligt kommando: ngrok http <portnummer på appen>
+

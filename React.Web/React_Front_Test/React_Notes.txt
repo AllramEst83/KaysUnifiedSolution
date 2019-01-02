@@ -1,0 +1,6 @@
+
+
+React PluralSight Course
+
+Solution: https://github.com/coryhouse/pluralsight-redux-starter
+
