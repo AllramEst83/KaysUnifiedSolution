@@ -45,12 +45,11 @@ namespace DataBaseAPI.Services
             return addedUnicorn;
         }
 
-        public async Task<Unicorn> UpdateUnicorn(Unicorn unicornToUpdate)
-        {
-            
+        public async Task<UnicornApiModel> UpdateUnicorn(Unicorn unicornToUpdate)
+        {            
             Unicorn updatedUnicorn = await _unicornRepo.UpdateUnicorn(unicornToUpdate);
 
-            return updatedUnicorn;
+            return Mapper.Map<UnicornApiModel>(updatedUnicorn);
         }
 
 

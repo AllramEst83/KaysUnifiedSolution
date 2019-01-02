@@ -108,12 +108,11 @@ namespace DataBaseAPI.Controllers
 
             Unicorn unicornToUpdate = Mapper.Map<Unicorn>(unicorn);
 
-            Unicorn updatedUnicorn = await _unicornService.UpdateUnicorn(unicornToUpdate);
+            UnicornApiModel updatedUnicorn = await _unicornService.UpdateUnicorn(unicornToUpdate);
 
             return Ok(updatedUnicorn);
         }
-
-
+        
         [HttpGet("{id}",Name = "GetHornTypeById")]
         public async Task<ActionResult> GetHornTypeById(Guid id)
         {
