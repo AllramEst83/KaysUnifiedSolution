@@ -2,7 +2,7 @@ import React from 'react';
 import TextInput from '../common/TextInput';
 import SelectInput from '../common/SelectInput';
 
-const UnicornForm = ({unicorn, allHornTypes, onSave, onChange, saving, errors}) => {
+const UnicornForm = ({ unicorn, allHornTypes, onSave, onChange, saving, errors, onClick, className }) => {
   return (
     <form>
       <TextInput
@@ -10,7 +10,7 @@ const UnicornForm = ({unicorn, allHornTypes, onSave, onChange, saving, errors}) 
         label="name"
         value={unicorn.name}
         onChange={onChange}
-        error={errors.name}/>
+        error={errors.name} />
 
       <SelectInput
         name="horntype"
@@ -18,35 +18,41 @@ const UnicornForm = ({unicorn, allHornTypes, onSave, onChange, saving, errors}) 
         value={unicorn.horntype.Id}//<--Funkar inte--
         defaultOption="Select Horntype"
         options={allHornTypes}
-        onChange={onChange} error={errors.Id}/>
+        onChange={onChange} error={errors.Id} />
 
       <TextInput
         name="breed"
         label="breed"
         value={unicorn.breed}
         onChange={onChange}
-        error={errors.breed}/>
+        error={errors.breed} />
 
       <TextInput
         name="description"
         label="description"
         value={unicorn.description}
         onChange={onChange}
-        error={errors.description}/>
+        error={errors.description} />
 
-         <TextInput
+      <TextInput
         name="origin"
         label="origin"
         value={unicorn.origin}
         onChange={onChange}
-        error={errors.origin}/>
+        error={errors.origin} />
 
       <input
         type="submit"
         disabled={saving}
         value={saving ? 'Saving...' : 'Save'}
         className="btn btn-primary"
-        onClick={onSave}/>
+        onClick={onSave} />
+
+      <input
+        type="button"
+        value="Back"
+        className={className}
+        onClick={onClick} />
     </form>
   );
 };

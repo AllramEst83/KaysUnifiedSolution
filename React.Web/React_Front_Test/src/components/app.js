@@ -4,9 +4,11 @@ import Header from './common/header';
 class App extends React.Component {
   render() {
     return (
-      <div className="container-fluid">
-        <Header/>
-        {this.props.children}
+      <div>
+        <Header />
+        <div className="container">
+          {this.props.children}
+        </div>
       </div>
     );
   }

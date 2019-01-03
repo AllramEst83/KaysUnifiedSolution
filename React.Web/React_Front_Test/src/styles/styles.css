@@ -4,7 +4,7 @@
   font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #4d4d4d;
   min-width: 550px;
-  max-width: 850px;
+  /* max-width: 850px; */
   margin: 0 auto;
 }
 
@@ -39,7 +39,7 @@ nav {
 }
 
 .mainText:hover {
-  text-shadow:  0px -15px 50px 30px rgb(182, 13, 255);
+  text-shadow: 1px 1px 20px #ff0000;
 }
 
 .thumbnail {
@@ -57,4 +57,19 @@ nav {
 
 .listSpacing{
   margin:25px;
+}
+
+.backButton{
+  margin-left: 5px;
+}
+.navElement{
+  margin-left:30px;
+}
+
+.navElement a.active {
+  color: #72ffb2 !important;
+}
+.navElement a {
+  color: #b3b3b3 !important;
+  text-decoration: none;
 }

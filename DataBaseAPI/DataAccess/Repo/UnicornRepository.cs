@@ -38,7 +38,7 @@ namespace DataBaseAPI.DataAccess
 
         public async Task<Unicorn> AddUnicorn(Unicorn unicornToAdd)
         {
-            unicornToAdd.DateOfBirth = DateTime.Now;
+            unicornToAdd =  SetDateOfBirth(unicornToAdd);
 
             var hornTypeInContext = await _context.HornTypes.FindAsync(unicornToAdd.HornType.Id);
             unicornToAdd.HornType = hornTypeInContext;
@@ -56,6 +56,14 @@ namespace DataBaseAPI.DataAccess
 
             return unicornToUpdate;
         }
+
+        public Unicorn SetDateOfBirth(Unicorn unicornToAdd)
+        {
+            unicornToAdd.DateOfBirth = DateTime.Now;
+
+            return unicornToAdd;
+        }
+
 
     }
 }

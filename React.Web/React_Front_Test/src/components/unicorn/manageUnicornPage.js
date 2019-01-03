@@ -14,10 +14,10 @@ class ManageUnicornPage extends React.Component {
             errors: {}
         };
         this.updateUnicornState = this.updateUnicornState.bind(this);
-        this.updateUnicorn = this.updateUnicorn.bind(this);     
+        this.updateUnicorn = this.updateUnicorn.bind(this);
     }
 
-    componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps) {
         if (this.props.unicorn.Id != nextProps.unicorn.Id) {
             //Necessary to populate form when existing unicorn is loaded directly
             this.setState({ unicorn: Object.assign({}, nextProps.unicorn) });
@@ -49,6 +49,12 @@ class ManageUnicornPage extends React.Component {
         );
 
     }
+    redirectToAddUicornsPage() {
+        browserHistory.push('/unicorn');
+    }
+    redirectToUnicornsPage() {
+        browserHistory.push('/unicorns');
+    }
 
     render() {
         return (
@@ -59,7 +65,9 @@ class ManageUnicornPage extends React.Component {
                     onChange={this.updateUnicornState}
                     unicorn={this.state.unicorn}
                     errors={this.state.errors}
-                    allHornTypes={this.props.hornTypes} />
+                    allHornTypes={this.props.hornTypes} 
+                    onClick={this.redirectToUnicornsPage}
+                    className="btn btn-info backButton"/>
             </div>
         );
     }
