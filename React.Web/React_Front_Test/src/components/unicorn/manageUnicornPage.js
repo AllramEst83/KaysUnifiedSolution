@@ -42,18 +42,20 @@ class ManageUnicornPage extends React.Component {
         event.preventDefault();
         this.props.actions.UpdateUnicorn(this.state.unicorn).then(
             function (details) {
-                //Redirect to '/unicorns' page
-                browserHistory.push('/unicorns');
+               //this.context.router.push('/unicorns');
+               browserHistory.push('/unicorns');
             },
             function (error) { /* handle failure */ }
         );
 
     }
     redirectToAddUicornsPage() {
-        browserHistory.push('/unicorn');
+        //browserHistory.push('/unicorn');
+        this.context.router.push('/unicorn');
     }
     redirectToUnicornsPage() {
         browserHistory.push('/unicorns');
+        //this.context.router.push('/unicorns');
     }
 
     render() {
@@ -65,9 +67,9 @@ class ManageUnicornPage extends React.Component {
                     onChange={this.updateUnicornState}
                     unicorn={this.state.unicorn}
                     errors={this.state.errors}
-                    allHornTypes={this.props.hornTypes} 
+                    allHornTypes={this.props.hornTypes}
                     onClick={this.redirectToUnicornsPage}
-                    className="btn btn-info backButton"/>
+                    className="btn btn-info backButton" />
             </div>
         );
     }
@@ -77,6 +79,10 @@ ManageUnicornPage.propTypes = {
     unicorn: PropTypes.object.isRequired,
     hornTypes: PropTypes.array.isRequired,
     actions: PropTypes.object.isRequired
+};
+
+ManageUnicornPage.contextTypes = {
+router: PropTypes.object
 };
 
 function getUnicornById(unicorns, id) {

@@ -1,8 +1,7 @@
 
 const RootAPIUrl = {
     // localhostHomeIp:'192.168.10.159:45457',
-    homeIp: '192.168.10.143:45460',
-    localhostWorkIp: '',
+    homeIp: '192.168.10.143:45457',
     workIp: '10.231.30.139:45460'
 };
 

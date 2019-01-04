@@ -1,16 +1,21 @@
 import React, { PropTypes } from 'react';
 import { Link, IndexLink } from 'react-router';
-import Music  from './Music';
+import Music from './Music';
 //import LoadingDots from './LoadingDots';
 
 const Header = () => {
   return (
-    <div className="topBar">
+    <div className="topBar">    
+         
       <div className="mainText">
         Best Unicorn Store on the web
-       
+        <div className="Muybridge">
+          🐎
         </div>
-        <Music/>
+      </div>
+
+      {/* <Music /> */}
+
       <div className="navElement">
         <nav>
           <IndexLink to="/" activeClassName="active">Home</IndexLink>
