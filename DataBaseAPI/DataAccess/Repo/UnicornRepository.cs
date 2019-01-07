@@ -1,4 +1,5 @@
-﻿using DataBaseAPI.Data.Entities.Context;
+﻿using DataBaseAPI.Constants;
+using DataBaseAPI.Data.Entities.Context;
 using DataBaseAPI.Interfaces;
 using DataBaseAPI.Models;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +25,7 @@ namespace DataBaseAPI.DataAccess
 
         public async Task<bool> HornTypesExist() => await _context.HornTypes.AnyAsync();
 
-        public async Task<List<Unicorn>> GetAllUnicorns() => await _context.Unicorns.Include(x => x.HornType).ToListAsync();
+        public async Task<List<Unicorn>> GetAllUnicorns() => await _context.Unicorns.Where(x => x.IsDeleted == CommonConstants.Fasle).Include(x => x.HornType).ToListAsync();
 
         public async Task<Unicorn> GetUnicornByGuid(Guid id) => await _context.Unicorns.Where(x => x.Id == id).Include(x => x.HornType).FirstOrDefaultAsync();
 
@@ -38,7 +39,7 @@ namespace DataBaseAPI.DataAccess
 
         public async Task<Unicorn> AddUnicorn(Unicorn unicornToAdd)
         {
-            unicornToAdd =  SetDateOfBirth(unicornToAdd);
+            unicornToAdd = SetDateOfBirth(unicornToAdd);
 
             var hornTypeInContext = await _context.HornTypes.FindAsync(unicornToAdd.HornType.Id);
             unicornToAdd.HornType = hornTypeInContext;
@@ -62,6 +63,29 @@ namespace DataBaseAPI.DataAccess
             unicornToAdd.DateOfBirth = DateTime.Now;
 
             return unicornToAdd;
+        }
+
+        public async Task<Unicorn> DeleteUnicorn(Guid Id)
+        {
+            var unicornToDelete = await _context.Unicorns
+                .Where(x => x.Id == Id)
+                .Include(x => x.HornType)
+                .FirstOrDefaultAsync();
+
+            if (unicornToDelete.IsDeleted == true || unicornToDelete.IsSold == true)
+            {
+                return unicornToDelete;
+            }
+
+            var hornTypeContext = await _context.HornTypes.FindAsync(unicornToDelete.HornType.Id);
+
+            unicornToDelete.HornType = hornTypeContext;
+            unicornToDelete.IsDeleted = CommonConstants.True;
+
+            _context.Unicorns.Update(unicornToDelete);
+            await _context.SaveChangesAsync();
+
+            return unicornToDelete;
         }
 
 

@@ -22,5 +22,6 @@ namespace PublicAPI.Interface
         Task<UnicornApiModel> UpdateUnicorn(UnicornToUpdateAPIModel unicornToUpdate);
         Task<UnicornApiModel> AssignNewHornType(UnicornApiModel unicorn);
         Task<CreateUnicornApiModel> AssignNewHornTypeToNewUnicorn(CreateUnicornApiModel unicorn);
+        Task<string> DeleteUnicorn(CancellationToken cancellationToken, Guid Id);
     }
 }

@@ -127,6 +127,24 @@ namespace DataBaseAPI.Controllers
 
         }
 
+        [HttpDelete("{Id}", Name = "DeleteUnicorn")]
+        public async Task<ActionResult> DeleteUnicorn(Guid Id)
+        {
+            if (Id == null)
+            {
+                return BadRequest(HttpConstants.BadParameters);
+            }
+
+            if (!await _unicornService.UnicornExitsById(Id))
+            {
+                return NotFound(HttpConstants.UnicornNotFound);
+            }
+
+            UnicornApiModel deletedUnicorn = await _unicornService.DeleteUnicorn(Id);
+
+            return Ok(deletedUnicorn);
+
+        }
 
 
     }

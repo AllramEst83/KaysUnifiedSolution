@@ -23,22 +23,22 @@ class AddUnicorn extends React.Component {
         this.redirectToAddUicornsPage = this.redirectToAddUicornsPage.bind(this);
     }
 
-    redirectToAddUicornsPage(){
+    redirectToAddUicornsPage() {
         browserHistory.push('/unicorn');
     }
-
+    
     render() {
         const { unicorns } = this.props;
         return (
-            <div className="row">           
+            <div className="row">
                 <div className="listSpacing">
-                    <UnicornList unicorns={unicorns} />
+                    <UnicornList unicorns={unicorns.filter(unicorn => unicorn.IsSold == false)} />
                     <input
-                    type="submit"
-                    value="Add Unicorn"
-                    className="btn btn-primary"
-                    onClick={this.redirectToAddUicornsPage}
-                />
+                        type="submit"
+                        value="Add Unicorn"
+                        className="btn btn-primary"
+                        onClick={this.redirectToAddUicornsPage}
+                    />
                 </div>
             </div>
         );

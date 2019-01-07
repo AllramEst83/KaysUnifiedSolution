@@ -18,6 +18,7 @@ namespace PublicAPI.Interface
         Task<UnicornApiModel> GetUnicornById(Guid id);
         Task<T> GenericHttpGet<T>(HttpParameters httpParameters);
         Task<UnicornApiModel> PutStreamAsync(object content, CancellationToken cancellationToken);
-        Task<UnicornApiModel> PostStreamAsync(object content, CancellationToken cancellationToken);
+        Task<UnicornApiModel> PostStreamAsyncContent(HttpParameters parameters);
+        Task<T> PostStreamAsyncQueryString<T>(HttpParameters parameters);
     }
 }

@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using PublicAPI.Constants;
+using System.Net.Http;
 
 namespace PublicAPI.Service
 {
@@ -127,7 +129,17 @@ namespace PublicAPI.Service
 
         public async Task<UnicornApiModel> AddUnicorn(CreateUnicornApiModel unicornToAdd)
         {
-            UnicornApiModel addedUnicorn = await _httpRepository.PostStreamAsync(unicornToAdd, CancellationToken.None);
+            string addUnicornUrl = _configuration.GetSection("ApiURl")["AddUnicorn"];
+
+            HttpParameters parameters = new HttpParameters()
+            {
+                Content = unicornToAdd,
+                cancellationToken = CancellationToken.None,
+                HttpVerb = HttpMethod.Post,
+                RequestUrl = addUnicornUrl
+            };
+
+            UnicornApiModel addedUnicorn = await _httpRepository.PostStreamAsyncContent(parameters);
 
             return addedUnicorn;
         }
@@ -210,6 +222,38 @@ namespace PublicAPI.Service
 
             return updatedUnicorn;
         }
+
+
+        public async Task<string> DeleteUnicorn(CancellationToken cancellationToken, Guid Id)
+        {
+            string deleteUnicornUrl = _configuration.GetSection("ApiURl")["DeleteUnicorn"];
+
+            HttpParameters httpParameters = new HttpParameters()
+            {
+                RequestUrl = deleteUnicornUrl,
+                cancellationToken = cancellationToken,
+                HttpVerb = HttpMethod.Delete,
+                Id = Id,
+                Content = null
+
+            };
+
+            string responseString = String.Empty;
+            try
+            {
+                UnicornApiModel deletedUnicorn = await _httpRepository.PostStreamAsyncQueryString<UnicornApiModel>(httpParameters);
+                responseString = JsonConvert.SerializeObject(deletedUnicorn);
+            }
+            catch (CustomApiException ex)
+            {
+
+                responseString = PrettySerializeCustomExeption(ex);
+            }
+
+
+            return responseString;
+        }
+
 
     }
 

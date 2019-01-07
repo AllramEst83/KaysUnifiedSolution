@@ -20,16 +20,16 @@ namespace PublicAPI.Repository
 
     public class HttpRepository : IHttpRepository
     {
-        public IConfiguration _configuratio { get; }
+        public IConfiguration _configuration { get; }
 
         public HttpRepository(IConfiguration Configuration)
         {
-            _configuratio = Configuration;
+            _configuration = Configuration;
         }
         //GetAllUnicorns
         public async Task<List<UnicornApiModel>> GetAllUnicorns(CancellationToken cancellationToken)
         {
-            string getUnicornsUrl = _configuratio.GetSection("ApiURl")["GetAllUnicornsUrl"];
+            string getUnicornsUrl = _configuration.GetSection("ApiURl")["GetAllUnicornsUrl"];
 
             using (var client = new HttpClient())
             using (var request = new HttpRequestMessage(HttpMethod.Get, getUnicornsUrl))
@@ -52,7 +52,7 @@ namespace PublicAPI.Repository
         //GetUnicornById
         public async Task<UnicornApiModel> GetUnicornById(Guid id)
         {
-            string getUnicornByIdUrl = _configuratio.GetSection("ApiURl")["GetUnicornById"];
+            string getUnicornByIdUrl = _configuration.GetSection("ApiURl")["GetUnicornById"];
 
             using (var client = new HttpClient())
             using (var request = new HttpRequestMessage(HttpMethod.Get, String.Format("{0}/{1}", getUnicornByIdUrl, id)))
@@ -156,20 +156,43 @@ namespace PublicAPI.Repository
             return httpContent;
         }
 
-
-        //PostStreamAsync
-        public async Task<UnicornApiModel> PostStreamAsync(object content, CancellationToken cancellationToken)
+        //PostStreamAsyncQueryString
+        public async Task<T> PostStreamAsyncQueryString<T>(HttpParameters parameters)
         {
-            string Url = _configuratio.GetSection("ApiURl")["AddUnicorn"];
+            string url = parameters.Id == Guid.Empty ? parameters.RequestUrl : String.Format("{0}/{1}", parameters.RequestUrl, parameters.Id);
 
             using (var client = new HttpClient())
-            using (var request = new HttpRequestMessage(HttpMethod.Post, Url))
-            using (var httpContent = CreateHttpContent(content))
+            using (var request = new HttpRequestMessage(parameters.HttpVerb, url))
+            using (var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, parameters.cancellationToken))
+            {
+                var stream = await response.Content.ReadAsStreamAsync();
+
+                if (response.IsSuccessStatusCode)
+                    return DeserializeJsonFromStream<T>(stream);
+
+                var content = await StreamToStringAsync(stream);
+                throw new CustomApiException
+                {
+                    StatusCode = (int)response.StatusCode,
+                    Content = content
+                };
+            }
+        }
+
+
+        //PostStreamAsync
+        public async Task<UnicornApiModel> PostStreamAsyncContent(HttpParameters parameters)
+        {
+            //using (var request = new HttpRequestMessage(parameters.HttpVerb, String.Format("{0}/{1}", parameters.RequestUrl, parameters.Id)))
+
+            using (var client = new HttpClient())
+            using (var request = new HttpRequestMessage(parameters.HttpVerb, parameters.RequestUrl))
+            using (var httpContent = CreateHttpContent(parameters.Content))
             {
                 request.Content = httpContent;
 
                 using (var response = await client
-                    .SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken)
+                    .SendAsync(request, HttpCompletionOption.ResponseHeadersRead, parameters.cancellationToken)
                     .ConfigureAwait(true))
                 {
                     response.EnsureSuccessStatusCode();
@@ -184,7 +207,7 @@ namespace PublicAPI.Repository
         //PutStreamAsync
         public async Task<UnicornApiModel> PutStreamAsync(object content, CancellationToken cancellationToken)
         {
-            string Url = _configuratio.GetSection("ApiURl")["UpdateUnicorn"];
+            string Url = _configuration.GetSection("ApiURl")["UpdateUnicorn"];
 
             using (var client = new HttpClient())
             using (var request = new HttpRequestMessage(HttpMethod.Put, Url))

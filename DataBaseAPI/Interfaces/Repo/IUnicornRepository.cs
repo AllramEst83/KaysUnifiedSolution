@@ -18,5 +18,6 @@ namespace DataBaseAPI.Interfaces
         Task<bool> HornTypesExist();
         Task<bool> HornTypeExistsById(Guid id);
         Task<Unicorn> UpdateUnicorn(Unicorn unicornToUpdate);
+        Task<Unicorn> DeleteUnicorn(Guid Id);
     }
 }

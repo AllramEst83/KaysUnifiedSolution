@@ -46,13 +46,19 @@ namespace DataBaseAPI.Services
         }
 
         public async Task<UnicornApiModel> UpdateUnicorn(Unicorn unicornToUpdate)
-        {            
+        {
             Unicorn updatedUnicorn = await _unicornRepo.UpdateUnicorn(unicornToUpdate);
 
             return Mapper.Map<UnicornApiModel>(updatedUnicorn);
         }
 
-    
+        public async Task<UnicornApiModel> DeleteUnicorn(Guid Id)
+        {
+            Unicorn deletedUnicorn = await _unicornRepo.DeleteUnicorn(Id);
+            UnicornApiModel unicornToSend = Mapper.Map<UnicornApiModel>(deletedUnicorn);
+
+            return unicornToSend;
+        }
 
     }
 }

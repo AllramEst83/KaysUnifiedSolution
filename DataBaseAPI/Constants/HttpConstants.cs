@@ -12,5 +12,6 @@ namespace DataBaseAPI.Constants
         public const string HornTypeNotFound = "No horntype with the given Id was found";
         public const string OutOfUnicorns = "There is no Unicorns in the database";
         public const string OutOfHornTypes = "There is no Horntypes in the database";
+        public const string BadParameters = "Please make a valid request";
     }
 }

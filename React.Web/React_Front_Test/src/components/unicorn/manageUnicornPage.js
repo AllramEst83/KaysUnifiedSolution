@@ -15,6 +15,7 @@ class ManageUnicornPage extends React.Component {
         };
         this.updateUnicornState = this.updateUnicornState.bind(this);
         this.updateUnicorn = this.updateUnicorn.bind(this);
+        this.DeleteUnicorn = this.DeleteUnicorn.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -40,15 +41,28 @@ class ManageUnicornPage extends React.Component {
     }
     updateUnicorn(event) {
         event.preventDefault();
-        this.props.actions.UpdateUnicorn(this.state.unicorn).then(
-            function (details) {
-               //this.context.router.push('/unicorns');
-               browserHistory.push('/unicorns');
-            },
+        this.props.actions.UpdateUnicorn(this.state.unicorn).then(details => {
+            //this.context.router.push('/unicorns');
+            browserHistory.push('/unicorns');
+
+        },
             function (error) { /* handle failure */ }
         );
 
     }
+
+    DeleteUnicorn(event) {
+        event.preventDefault();
+        this.props.actions.DeleteUnicorn(this.state.unicorn).then(details => {
+            browserHistory.push('/unicorns');
+        },
+            function (error) {
+                /* handle failure */
+            }
+        );
+
+    }
+
     redirectToAddUicornsPage() {
         //browserHistory.push('/unicorn');
         this.context.router.push('/unicorn');
@@ -69,6 +83,8 @@ class ManageUnicornPage extends React.Component {
                     errors={this.state.errors}
                     allHornTypes={this.props.hornTypes}
                     onClick={this.redirectToUnicornsPage}
+                    onDelete={this.DeleteUnicorn}
+                    deleteclassName={"btn btn-warning backButton"}
                     className="btn btn-info backButton" />
             </div>
         );
@@ -82,7 +98,7 @@ ManageUnicornPage.propTypes = {
 };
 
 ManageUnicornPage.contextTypes = {
-router: PropTypes.object
+    router: PropTypes.object
 };
 
 function getUnicornById(unicorns, id) {

@@ -37,7 +37,6 @@ namespace PublicAPI.Controllers
             _wrapperService = wrapperService;
         }
 
-
         [HttpGet(Name = "GetUnicorns")]
         //[Produces("application/json")] <--Bygg ModelState Error Först
         public async Task<ActionResult<string>> GetUnicorns()
@@ -52,6 +51,11 @@ namespace PublicAPI.Controllers
         //[Produces("application/json")]  <--Bygg ModelState Error Först
         public async Task<ActionResult<string>> GetUnicornById(Guid id)
         {
+            if (id == null)
+            {
+                return BadRequest("Please make a valid request");
+            }
+
             string wrappedAndSerializedUnicorn = await _unicornService.GetUnicornByGuid(id);
 
             return Ok(wrappedAndSerializedUnicorn);
@@ -100,6 +104,19 @@ namespace PublicAPI.Controllers
             UnicornApiModel updatedUnicorn = await _unicornService.UpdateUnicorn(unicorn);
 
             return Ok(updatedUnicorn);
+        }
+
+        //[HttpDelete("{Id}", Name = "DeleteUnicorn")]
+        public async Task<ActionResult<string>> DeleteUnicorn(Guid Id)
+        {
+            if (Id == null)
+            {
+                return BadRequest("Please make a valid request");
+            }
+
+            string deletedUnicorn = await _unicornService.DeleteUnicorn(CancellationToken.None, Id);
+
+            return Ok(JsonConvert.DeserializeObject(deletedUnicorn));
         }
 
         [HttpGet]

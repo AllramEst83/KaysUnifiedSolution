@@ -9,16 +9,22 @@ export default function unicornReducer(state = initialState.unicorns, action) {
         case actionTypes.LOAD_UNICORNS_SUCCESS:
             return action.unicorns;
 
-            case actionTypes.CREATE_UNICORN_SUCCESS:
-            return[
+        case actionTypes.CREATE_UNICORN_SUCCESS:
+            return [
                 ...state,
                 Object.assign({}, action.unicorn)
             ];
 
-            case actionTypes.UPDATED_UNICORN_SUCCESS:
-            return[
+        case actionTypes.UPDATED_UNICORN_SUCCESS:
+            return [
                 ...state.filter(unicorn => unicorn.Id !== action.unicorn.Id),
-                Object.assign({},action.unicorn)
+                Object.assign({}, action.unicorn)
+            ]
+
+        case actionTypes.DELETE_UNICORN_SUCCESS:
+            return [
+                ...state.filter(unicorn => unicorn.Id !== action.unicorn.Id),
+                Object.assign({}, action.unicorn)
             ]
         default:
             return state;

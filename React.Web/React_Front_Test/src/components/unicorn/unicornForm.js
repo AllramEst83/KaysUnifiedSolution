@@ -2,7 +2,7 @@ import React from 'react';
 import TextInput from '../common/TextInput';
 import SelectInput from '../common/SelectInput';
 
-const UnicornForm = ({ unicorn, allHornTypes, onSave, onChange, saving, errors, onClick, className }) => {
+const UnicornForm = ({ unicorn, allHornTypes, onSave, onChange, saving, errors, onClick,onDelete,deleteclassName, className }) => {
   return (
     <form>
       <TextInput
@@ -53,6 +53,14 @@ const UnicornForm = ({ unicorn, allHornTypes, onSave, onChange, saving, errors, 
         value="Back"
         className={className}
         onClick={onClick} />
+
+
+      <input
+        type="button"
+        value="Delete"
+        className={deleteclassName}
+        onClick={onDelete} />
+
     </form>
   );
 };

@@ -2,27 +2,36 @@
 const RootAPIUrl = {
     // localhostHomeIp:'192.168.10.159:45457',
     homeIp: '192.168.10.143:45457',
-    workIp: '10.231.30.139:45460'
+    workIp: '10.231.30.139:45457'
 };
 
-class AuthorApi {
 
+
+class AuthorApi {
+    static Guid() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
 
 
     static returnUnicorn() {
         return {
-            "HornType": {
-                "Type": "Crystaline hornbug",
-                "Decoration": "Very sturdy",
-                "Material": "Hardened atomic Crysatline"
+            "horntype": {
+                "Id": this.Guid(),
+                "type": "No Service",
+                "decoration": "No Service",
+                "material": "No Service"
             },
-            "Name": "Gustav",
-            "Breed": "Ass whooping",
+            "Id": this.Guid(),
+            "name": "No Service at the moment",
+            "breed": "No Service",
             "IsDeleted": false,
             "IsSold": false,
-            "DateOfBirth": "1600-12-12T00:00:00",
-            "Description": "Kicks like a mule",
-            "Origin": "Azerbadjan"
+            "dateofbirth": "1000-12-12T00:00:00",
+            "description": "No Service",
+            "origin": "No Service"
         };
     }
     static returnHornType() {
@@ -35,7 +44,7 @@ class AuthorApi {
 
     static getAllAuthors() {
         return new Promise((resolve, reject) => {
-            fetch(`https://${RootAPIUrl.homeIp}/api/PublicUnicorn/GetUnicorns`)
+            fetch(`https://${RootAPIUrl.workIp}/api/PublicUnicorn/GetUnicorns`)
                 .then(res => res.json())
                 .then(
                     (result) => {
@@ -57,7 +66,7 @@ class AuthorApi {
 
     static getAllHornTypes() {
         return new Promise((resolve, reject) => {
-            fetch(`https://${RootAPIUrl.homeIp}/api/PublicUnicorn/GetAllHornTypes`)
+            fetch(`https://${RootAPIUrl.workIp}/api/PublicUnicorn/GetAllHornTypes`)
                 .then(res => res.json())
                 .then(
                     (result) => {
@@ -79,15 +88,16 @@ class AuthorApi {
 
     static postUnicorn(unicorn) {
         return new Promise((resolve, reject) => {
-
-       
-            let prop ="Id";
+            //Temp solution
+            let prop = "Id";
             delete unicorn[prop];
+            //Temp solution
+
             let data = JSON.stringify(unicorn);
 
             console.log(data);
 
-            fetch(`https://${RootAPIUrl.homeIp}/api/PublicUnicorn/AddUnicorn`, {
+            fetch(`https://${RootAPIUrl.workIp}/api/PublicUnicorn/AddUnicorn`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -98,7 +108,7 @@ class AuthorApi {
             }).then(res => res.json())
                 .then(
                     (result) => {
-                        resolve(Object.assign([], result));
+                        resolve(Object.assign({}, result));
                         console.log(result);
                     },
                     (error) => {
@@ -110,7 +120,7 @@ class AuthorApi {
 
     static putUnicorn(unicorn) {
         return new Promise((resolve, reject) => {
-            fetch(`https://${RootAPIUrl.homeIp}/api/PublicUnicorn/UpdateUnicorn`, {
+            fetch(`https://${RootAPIUrl.workIp}/api/PublicUnicorn/UpdateUnicorn`, {
                 method: 'PUT',
                 headers: {
                     'Accept': 'application/json',
@@ -121,7 +131,31 @@ class AuthorApi {
             }).then(res => res.json())
                 .then(
                     (result) => {
-                        resolve(Object.assign([], result.Unicorn));
+                        resolve(Object.assign({}, result));
+                        console.log(result);
+
+                    },
+                    (error) => {
+                        console.log(error);
+                    }
+                );
+        });
+    }
+
+    static DeleteUnicorn(unicorn) {
+        return new Promise((resolve, reject) => {
+            fetch(`https://${RootAPIUrl.workIp}/api/PublicUnicorn/DeleteUnicorn?Id=${unicorn.Id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': 'http://localhost:3000'
+                }
+                //body: JSON.stringify(unicornId)
+            }).then(res => res.json())
+                .then(
+                    (result) => {
+                        resolve(Object.assign({}, result));
                         console.log(result);
 
                     },

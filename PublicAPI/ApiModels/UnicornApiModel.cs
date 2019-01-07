@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 namespace PublicAPI.ApiModels
 {
     public class UnicornApiModel
-    {      
+    {
+        [JsonProperty(PropertyName = "Id")]
         public Guid Id { get; set; }
 
         [JsonProperty(PropertyName = "horntype")]
