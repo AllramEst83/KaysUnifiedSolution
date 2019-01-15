@@ -1,7 +1,7 @@
 
 const RootAPIUrl = {
     // localhostHomeIp:'192.168.10.159:45457',
-    homeIp: '192.168.10.143:45457',
+    homeIp: '192.168.43.126:45457',
     workIp: '10.231.30.139:45457'
 };
 
@@ -44,7 +44,7 @@ class AuthorApi {
 
     static getAllAuthors() {
         return new Promise((resolve, reject) => {
-            fetch(`https://${RootAPIUrl.workIp}/api/PublicUnicorn/GetUnicorns`)
+            fetch(`https://${RootAPIUrl.homeIp}/api/PublicUnicorn/GetUnicorns`)
                 .then(res => res.json())
                 .then(
                     (result) => {
@@ -66,7 +66,7 @@ class AuthorApi {
 
     static getAllHornTypes() {
         return new Promise((resolve, reject) => {
-            fetch(`https://${RootAPIUrl.workIp}/api/PublicUnicorn/GetAllHornTypes`)
+            fetch(`https://${RootAPIUrl.homeIp}/api/PublicUnicorn/GetAllHornTypes`)
                 .then(res => res.json())
                 .then(
                     (result) => {
@@ -97,7 +97,7 @@ class AuthorApi {
 
             console.log(data);
 
-            fetch(`https://${RootAPIUrl.workIp}/api/PublicUnicorn/AddUnicorn`, {
+            fetch(`https://${RootAPIUrl.homeIp}/api/PublicUnicorn/AddUnicorn`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -120,7 +120,7 @@ class AuthorApi {
 
     static putUnicorn(unicorn) {
         return new Promise((resolve, reject) => {
-            fetch(`https://${RootAPIUrl.workIp}/api/PublicUnicorn/UpdateUnicorn`, {
+            fetch(`https://${RootAPIUrl.homeIp}/api/PublicUnicorn/UpdateUnicorn`, {
                 method: 'PUT',
                 headers: {
                     'Accept': 'application/json',
@@ -144,7 +144,7 @@ class AuthorApi {
 
     static DeleteUnicorn(unicorn) {
         return new Promise((resolve, reject) => {
-            fetch(`https://${RootAPIUrl.workIp}/api/PublicUnicorn/DeleteUnicorn?Id=${unicorn.Id}`, {
+            fetch(`https://${RootAPIUrl.homeIp}/api/PublicUnicorn/DeleteUnicorn?Id=${unicorn.Id}`, {
                 method: 'DELETE',
                 headers: {
                     'Accept': 'application/json',
