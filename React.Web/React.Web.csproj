@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="React.App\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
